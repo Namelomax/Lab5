@@ -2,12 +2,8 @@ package Second_sem.lab5;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HumanBeing implements Comparable<HumanBeing> {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -40,17 +36,17 @@ public class HumanBeing implements Comparable<HumanBeing> {
         Double unzipId = (Double) array[0];
         this.id = unzipId.intValue();
         this.name = (String) array[1];
-        this.coordinates = (Coordinates) new Coordinates((ArrayList<Number>) array[2]);
+        this.coordinates = new Coordinates((ArrayList<Number>) array[2]);
         ArrayList<Double> unzipDate = (ArrayList<Double>)array[3];
         this.creationDate = LocalDateTime.of(unzipDate.get(0).intValue(), unzipDate.get(1).intValue(), unzipDate.get(2).intValue(), unzipDate.get(3).intValue(), unzipDate.get(4).intValue(), unzipDate.get(5).intValue());
         this.realHero = (Boolean) array[4];
         this.hasToothpick = (Boolean) array[5];
         Double unzipSpeed = (Double) array[6];
-        this.impactSpeed = (long) unzipSpeed.longValue();
+        this.impactSpeed = unzipSpeed.longValue();
         this.soundtrackName = (String) array[7];
         this.minutesOfWaiting = (Double) array[8];
         this.mood = Mood.valueOf((String) array[9]);
-        this.car = (Car) new Car((String) array[10]);
+        this.car = new Car((String) array[10]);
     }
     public HumanBeing(){};
 
@@ -58,7 +54,7 @@ public class HumanBeing implements Comparable<HumanBeing> {
     public int compareTo(@NotNull HumanBeing o) {
         return Integer.compare(this.id, o.id);
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -147,7 +143,7 @@ public class HumanBeing implements Comparable<HumanBeing> {
 
     @Override
     public String toString() {
-        String txt = "id: "+id+"\nname: "+name+"\ncoordinates: "+coordinates+"\ncreation date: "
+        String txt = "\nid: "+id+"\nname: "+name+"\ncoordinates: "+coordinates+"\ncreation date: "
                 +creationDate+"\nreal hero: "+realHero+"\nhas toothpick: "+hasToothpick+"\nimpact speed: "+impactSpeed+
                 "\nsoundtrack name: "+soundtrackName+"\nminutes of waiting: "+minutesOfWaiting+"\nmood: "+mood+ "\ncar: "+car;
         return txt;

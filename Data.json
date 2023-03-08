@@ -8,7 +8,7 @@
     "hasToothpick": true,
     "impactSpeed": 225,
     "soundtrackName": "Counting stars",
-    "minutesOfWaiting": 23.4,
+    "minutesOfWaiting": null,
     "mood": "SADNESS",
     "car": "rhino logan"
   },
@@ -26,3 +26,5 @@
     "car": "bmw x6"
   }
 ]
+
+
