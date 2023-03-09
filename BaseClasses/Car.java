@@ -1,4 +1,4 @@
-package Second_sem.lab5;
+package Second_sem.lab5.BaseClasses;
 
 public class Car {
     private String name; //Поле не может быть null

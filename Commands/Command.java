@@ -1,4 +1,4 @@
-package Second_sem.lab5;
+package Second_sem.lab5.Commands;
 
 @FunctionalInterface
 public interface Command {

@@ -1,11 +1,12 @@
-package Second_sem.lab5.Commands;
+package Second_sem.lab5;
 
 import Second_sem.lab5.LinkedTreeMapCommander;
-import Second_sem.lab5.HumanBeing;
+import Second_sem.lab5.BaseClasses.HumanBeing;
 import Second_sem.lab5.Main;
 import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.ArrayList;
+import java.io.Console;
+import java.util.Collections;
 
 public class ConsoleCommand {
     public void help(){
@@ -43,6 +44,11 @@ public class ConsoleCommand {
     }
 
     public void update(Object... parametres){
+        remove_by_id(parametres[0]);
+        add(parametres);
+    }
+
+    public void remove_by_id(Object... parametres){
         for(LinkedTreeMap set_of_data: Main.listOfData){
             if (set_of_data.get("id").equals(parametres[0])){
                 Main.listOfData.remove(set_of_data);
@@ -55,8 +61,49 @@ public class ConsoleCommand {
                 break;
             }
         }
-
-        add(parametres);
     }
 
+    public void clear(){
+        Main.listOfData.clear();
+        Main.listOfHumanBeing.clear();
+    }
+
+    public void save(){
+        WorkWithFile.writeInFile(Main.path, Main.listOfData);
+    }
+
+    //@TODO execute_script
+
+    public void exit(){
+        exit();
+    }
+
+    public void remove_first(){
+        Collections.sort(Main.listOfHumanBeing);
+        remove_by_id(Main.listOfHumanBeing.getFirst().getId());
+    }
+
+    public void remove_head(){
+        Collections.sort(Main.listOfHumanBeing);
+        System.out.println(Main.listOfHumanBeing.getFirst());
+        remove_by_id(Main.listOfHumanBeing.getFirst().getId());
+    }
+
+    public void add_if_max(Object... parametres){
+        Collections.sort(Main.listOfHumanBeing);
+        if(Main.listOfHumanBeing.getLast().getId() < (Double) parametres[0]){
+            add(parametres);
+        }
+    }
+
+    public void count_by_minutes_of_waiting(Object... parametres){
+        int count = 0;
+        for(HumanBeing unit: Main.listOfHumanBeing){
+            if(unit.getMinutesOfWaiting().equals(parametres[0])){count++;}
+        }
+        System.out.println(count);
+    }
+
+
+    
 }

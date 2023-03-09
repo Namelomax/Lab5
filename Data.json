@@ -1,18 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Bob",
-    "coordinates": [2.94, 32.564],
-    "creationDate": [2023, 2, 24, 20, 10, 30],
-    "realHero": false,
-    "hasToothpick": true,
-    "impactSpeed": 225,
-    "soundtrackName": "Counting stars",
-    "minutesOfWaiting": null,
-    "mood": "SADNESS",
-    "car": "rhino logan"
-  },
-  {
     "id": 2,
     "name": "Leon",
     "coordinates": [6.56, 583.425],
@@ -24,6 +11,19 @@
     "minutesOfWaiting": 3.24,
     "mood": "SADNESS",
     "car": "bmw x6"
+  },
+  {
+    "id": 1,
+    "name": "Bob",
+    "coordinates": [2.94, 32.564],
+    "creationDate": [2023, 2, 24, 20, 10, 30],
+    "realHero": false,
+    "hasToothpick": true,
+    "impactSpeed": 225,
+    "soundtrackName": "Counting stars",
+    "minutesOfWaiting": null,
+    "mood": "SADNESS",
+    "car": "rhino logan"
   }
 ]
 

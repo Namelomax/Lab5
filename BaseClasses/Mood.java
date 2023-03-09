@@ -1,4 +1,4 @@
-package Second_sem.lab5;
+package Second_sem.lab5.BaseClasses;
 
 public enum Mood {
     SADNESS,

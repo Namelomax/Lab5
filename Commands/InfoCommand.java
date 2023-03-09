@@ -1,6 +1,6 @@
 package Second_sem.lab5.Commands;
 
-import Second_sem.lab5.Command;
+import Second_sem.lab5.ConsoleCommand;
 
 public class InfoCommand implements Command {
     private ConsoleCommand consoleCommand;

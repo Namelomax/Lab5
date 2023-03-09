@@ -1,4 +1,4 @@
-package Second_sem.lab5;
+package Second_sem.lab5.BaseClasses;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,8 +54,8 @@ public class HumanBeing implements Comparable<HumanBeing> {
     public int compareTo(@NotNull HumanBeing o) {
         return Integer.compare(this.id, o.id);
     }
-    public Integer getId() {
-        return id;
+    public Double getId() {
+        return (double) id;
     }
 
     public void setId(int id) {
