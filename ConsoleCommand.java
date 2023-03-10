@@ -1,5 +1,6 @@
 package Second_sem.lab5;
 
+import Second_sem.lab5.BaseClasses.Mood;
 import Second_sem.lab5.LinkedTreeMapCommander;
 import Second_sem.lab5.BaseClasses.HumanBeing;
 import Second_sem.lab5.Main;
@@ -104,6 +105,18 @@ public class ConsoleCommand {
         System.out.println(count);
     }
 
+    public void count_less_than_mood(Object... parametres){
+        int count = 0;
+        for(HumanBeing unit: Main.listOfHumanBeing){
+            if(unit.getMood().compareTo((Mood) parametres[0]) < 0){count++;}
+        }
+        System.out.println(count);
+    }
 
-    
+    public void print_ascending(){
+        Collections.sort(Main.listOfHumanBeing);
+        for(HumanBeing unit: Main.listOfHumanBeing){
+            System.out.println(unit+"\n");
+        }
+    }
 }
