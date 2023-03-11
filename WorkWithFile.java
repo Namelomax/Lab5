@@ -18,6 +18,7 @@ public class WorkWithFile {
     }
 
     public static LinkedList<LinkedTreeMap> convertJSONtoLinkedList(String txt){
+
         return new Gson().fromJson(txt, LinkedList.class);
     }
 

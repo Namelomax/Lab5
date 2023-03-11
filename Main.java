@@ -3,17 +3,41 @@ package Second_sem.lab5;
 import Second_sem.lab5.BaseClasses.HumanBeing;
 import Second_sem.lab5.Commands.AddCommand;
 import Second_sem.lab5.Commands.SaveCommand;
+import Second_sem.lab5.Commands.ShowCommand;
 import Second_sem.lab5.Commands.UpdateCommand;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Main {
     static String path;
+    /**
+     * LinkedList with all data of units
+     * <p>
+     * All data is in format of LinkedTreeMap. It's using for creating units of HumanBeing class.
+     * </p>
+     */
     public static LinkedList<LinkedTreeMap> listOfData;
+
+    /**
+     * Linked list which contains units of HumanBeing class
+     */
     public static LinkedList<HumanBeing> listOfHumanBeing;
 
+    /**
+     * Date of initialization date of collection
+     */
+    public static LocalDateTime dateOfInitialization;
+
+    public static boolean ongoing = true;
+
+    /**
+     * Method for starting program.
+     * @param args
+     */
     public static void main(String[] args) {
         path = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Data.json";
         String data = WorkWithFile.readFromFile(path);
@@ -30,18 +54,30 @@ public class Main {
         addCommand.execute(test);
         updateCommand.execute(test2);
 
-        SaveCommand saveCommand = new SaveCommand(consoleCommand);
-        saveCommand.execute();
+//        SaveCommand saveCommand = new SaveCommand(consoleCommand);
+//        saveCommand.execute();
+
+        ShowCommand showCommand = new ShowCommand(consoleCommand);
+        showCommand.execute();
 
 
 
     }
 
+    /**
+     * Make list of HumanBeing units
+     * It takes LinkedList of LinkedTreeMap with all parameters of our unit.
+     *
+     * @author KruglovEgor
+     * @param data LinkedList of LinkedTreeMap with all parameters of our unit.
+     * @return LinkedList with units of HumanBeing units.
+     */
     private static LinkedList<HumanBeing> makeListOfHumanBeing(LinkedList<LinkedTreeMap> data) {
         LinkedList<HumanBeing> listOfHumanBeing = new LinkedList<HumanBeing>();
+        dateOfInitialization = java.time.LocalDateTime.now();
         for (LinkedTreeMap<String, Object> datum : data) {
 
-            HumanBeing unit = new HumanBeing(LinkedTreeMapCommander.getParams((LinkedTreeMap<String, Object>) datum));
+            HumanBeing unit = new HumanBeing(LinkedTreeMapManager.getParams((LinkedTreeMap<String, Object>) datum));
             listOfHumanBeing.add(unit);
         }
         return listOfHumanBeing;}

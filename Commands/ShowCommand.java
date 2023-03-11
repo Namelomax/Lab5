@@ -1,6 +1,7 @@
 package Second_sem.lab5.Commands;
 
 import Second_sem.lab5.ConsoleCommand;
+import Second_sem.lab5.PrintingResults;
 
 public class ShowCommand implements Command {
 
@@ -9,6 +10,6 @@ public class ShowCommand implements Command {
     public ShowCommand(ConsoleCommand consoleCommand){this.consoleCommand=consoleCommand;}
     @Override
     public void execute(Object... param) {
-        consoleCommand.show();
+        PrintingResults.printResults(consoleCommand.show());
     }
 }

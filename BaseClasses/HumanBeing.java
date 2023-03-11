@@ -143,7 +143,7 @@ public class HumanBeing implements Comparable<HumanBeing> {
 
     @Override
     public String toString() {
-        String txt = "\nid: "+id+"\nname: "+name+"\ncoordinates: "+coordinates+"\ncreation date: "
+        String txt = "\n\nid: "+id+"\nname: "+name+"\ncoordinates: "+coordinates+"\ncreation date: "
                 +creationDate+"\nreal hero: "+realHero+"\nhas toothpick: "+hasToothpick+"\nimpact speed: "+impactSpeed+
                 "\nsoundtrack name: "+soundtrackName+"\nminutes of waiting: "+minutesOfWaiting+"\nmood: "+mood+ "\ncar: "+car;
         return txt;
