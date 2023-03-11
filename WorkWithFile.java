@@ -8,7 +8,12 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class WorkWithFile {
-
+    /**
+     * Reads all text from file.
+     * @param pathToFile path to the file.
+     * @return String which contains all data from file.
+     * @author KruglovEgor
+     */
     public static String readFromFile(String pathToFile) {
         try {
             return new Scanner(new File(pathToFile)).useDelimiter("\\Z").next();
@@ -17,14 +22,24 @@ public class WorkWithFile {
         }
     }
 
-    public static LinkedList<LinkedTreeMap> convertJSONtoLinkedList(String txt){
-
+    /**
+     * Convert json data to Linked list.
+     * @param txt the json data in format of String.
+     * @return LinkedList<LinkedTreeMap<String, Object>> with fields and their values for creating HumanBeing unit.
+     * @author KruglovEgor
+     */
+    public static LinkedList<LinkedTreeMap<String, Object>> convertJSONtoLinkedList(String txt){
         return new Gson().fromJson(txt, LinkedList.class);
     }
 
 
-
-    public static void writeInFile(String pathToFile, LinkedList<LinkedTreeMap> data){
+    /**
+     * Write json-data in json file.
+     * @param pathToFile path to the json file.
+     * @param data LinkedList<LinkedTreeMap<String, Object>> with information about units of HumanBeing.
+     * @author KruglovEgor
+     */
+    public static void writeInFile(String pathToFile, LinkedList<LinkedTreeMap<String, Object>> data){
         Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
         String jsonString = gson.toJson(data);
         try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(pathToFile))) {
