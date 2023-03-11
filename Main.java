@@ -2,17 +2,16 @@ package Second_sem.lab5;
 
 import Second_sem.lab5.BaseClasses.HumanBeing;
 import Second_sem.lab5.Commands.AddCommand;
+import Second_sem.lab5.Commands.SaveCommand;
 import Second_sem.lab5.Commands.UpdateCommand;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Main {
     static String path;
-    public static LinkedList<LinkedTreeMap<String, Object>> listOfData;
+    public static LinkedList<LinkedTreeMap> listOfData;
     public static LinkedList<HumanBeing> listOfHumanBeing;
 
     public static void main(String[] args) {
@@ -30,16 +29,18 @@ public class Main {
 
         addCommand.execute(test);
         updateCommand.execute(test2);
-//        System.out.println(listOfData);
-//        Collections.sort(listOfHumanBeing);
-//        System.out.println(listOfHumanBeing);
+
+        SaveCommand saveCommand = new SaveCommand(consoleCommand);
+        saveCommand.execute();
+
 
 
     }
 
-    private static LinkedList<HumanBeing> makeListOfHumanBeing(LinkedList<LinkedTreeMap<String, Object>> data) {
+    private static LinkedList<HumanBeing> makeListOfHumanBeing(LinkedList<LinkedTreeMap> data) {
         LinkedList<HumanBeing> listOfHumanBeing = new LinkedList<HumanBeing>();
         for (LinkedTreeMap<String, Object> datum : data) {
+
             HumanBeing unit = new HumanBeing(LinkedTreeMapCommander.getParams((LinkedTreeMap<String, Object>) datum));
             listOfHumanBeing.add(unit);
         }

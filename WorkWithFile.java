@@ -1,9 +1,9 @@
 package Second_sem.lab5;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -17,13 +17,19 @@ public class WorkWithFile {
         }
     }
 
-    public static LinkedList<LinkedTreeMap<String, Object>> convertJSONtoLinkedList(String txt){
+    public static LinkedList<LinkedTreeMap> convertJSONtoLinkedList(String txt){
         return new Gson().fromJson(txt, LinkedList.class);
     }
 
 
 
-    public static void writeInFile(String pathToFile, LinkedList<LinkedTreeMap<String, Object>> data){
-
+    public static void writeInFile(String pathToFile, LinkedList<LinkedTreeMap> data){
+        Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        String jsonString = gson.toJson(data);
+        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(pathToFile))) {
+            bos.write(jsonString.getBytes());
+        } catch (IOException|RuntimeException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

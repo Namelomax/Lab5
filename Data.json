@@ -1,30 +1,163 @@
 [
   {
-    "id": 2,
+    "id": 2.0,
     "name": "Leon",
-    "coordinates": [6.56, 583.425],
-    "creationDate": [2023, 2, 24, 20, 11, 0],
+    "coordinates": [
+      6.56,
+      583.425
+    ],
+    "creationDate": [
+      2023.0,
+      2.0,
+      24.0,
+      20.0,
+      11.0,
+      0.0
+    ],
     "realHero": false,
     "hasToothpick": true,
-    "impactSpeed": 35855,
+    "impactSpeed": 35855.0,
     "soundtrackName": "Zvezdnoe Leto",
     "minutesOfWaiting": 3.24,
     "mood": "SADNESS",
     "car": "bmw x6"
   },
   {
-    "id": 1,
+    "id": 1.0,
     "name": "Bob",
-    "coordinates": [2.94, 32.564],
-    "creationDate": [2023, 2, 24, 20, 10, 30],
+    "coordinates": [
+      2.94,
+      32.564
+    ],
+    "creationDate": [
+      2023.0,
+      2.0,
+      24.0,
+      20.0,
+      10.0,
+      30.0
+    ],
     "realHero": false,
     "hasToothpick": true,
-    "impactSpeed": 225,
+    "impactSpeed": 225.0,
     "soundtrackName": "Counting stars",
     "minutesOfWaiting": null,
     "mood": "SADNESS",
     "car": "rhino logan"
+  },
+  {
+    "id": 3.0,
+    "name": "Jane",
+    "coordinates": [
+      5.245,
+      25.56
+    ],
+    "creationDate": [
+      2023.0,
+      3.0,
+      8.0,
+      23.0,
+      48.0,
+      30.0
+    ],
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 123.0,
+    "soundtrackName": "Rumbling",
+    "minutesOfWaiting": 1.2,
+    "mood": "LONGING",
+    "car": "peugeout 307"
+  },
+  {
+    "id": 3.0,
+    "name": "Jane",
+    "coordinates": [
+      5.245,
+      25.56
+    ],
+    "creationDate": [
+      2023.0,
+      3.0,
+      8.0,
+      23.0,
+      48.0,
+      30.0
+    ],
+    "realHero": true,
+    "hasToothpick": true,
+    "impactSpeed": 123.0,
+    "soundtrackName": "The Box",
+    "minutesOfWaiting": 1.3,
+    "mood": "LONGING",
+    "car": "peugeout 308"
+  },
+  {
+    "id": 3.0,
+    "name": "Jane",
+    "coordinates": [
+      5.245,
+      25.56
+    ],
+    "creationDate": [
+      2023.0,
+      3.0,
+      8.0,
+      23.0,
+      48.0,
+      30.0
+    ],
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 123.0,
+    "soundtrackName": "Rumbling",
+    "minutesOfWaiting": 1.2,
+    "mood": "LONGING",
+    "car": "peugeout 307"
+  },
+  {
+    "id": 3.0,
+    "name": "Jane",
+    "coordinates": [
+      5.245,
+      25.56
+    ],
+    "creationDate": [
+      2023.0,
+      3.0,
+      8.0,
+      23.0,
+      48.0,
+      30.0
+    ],
+    "realHero": true,
+    "hasToothpick": true,
+    "impactSpeed": 123.0,
+    "soundtrackName": "The Box",
+    "minutesOfWaiting": 1.3,
+    "mood": "LONGING",
+    "car": "peugeout 308"
+  },
+  {
+    "id": 3.0,
+    "name": "Jane",
+    "coordinates": [
+      5.245,
+      25.56
+    ],
+    "creationDate": [
+      2023.0,
+      3.0,
+      8.0,
+      23.0,
+      48.0,
+      30.0
+    ],
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 123.0,
+    "soundtrackName": "Rumbling",
+    "minutesOfWaiting": 1.2,
+    "mood": "LONGING",
+    "car": "peugeout 307"
   }
 ]
-
-
