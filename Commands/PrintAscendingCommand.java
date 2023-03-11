@@ -1,6 +1,7 @@
 package Second_sem.lab5.Commands;
 
 import Second_sem.lab5.ConsoleCommand;
+import Second_sem.lab5.PrintingResults;
 
 public class PrintAscendingCommand implements Command{
 
@@ -9,6 +10,6 @@ public class PrintAscendingCommand implements Command{
     public PrintAscendingCommand(ConsoleCommand consoleCommand){this.consoleCommand=consoleCommand;}
     @Override
     public void execute(Object... param) {
-        consoleCommand.print_ascending();
+        PrintingResults.printResults(consoleCommand.print_ascending());
     }
 }

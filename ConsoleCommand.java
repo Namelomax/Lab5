@@ -5,11 +5,12 @@ import Second_sem.lab5.BaseClasses.HumanBeing;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Collections;
+import java.util.LinkedList;
 
 public class ConsoleCommand {
 
     /**
-     * Printing list of command with their description
+     * Returns list of command with their description
      * @author KruglovEgor
      */
     public String help(){
@@ -33,7 +34,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Printing class, size and date of initialization of collection
+     * Returns class, size and date of initialization of collection
      * @author KruglovEgor
      */
     public String info(){
@@ -44,7 +45,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Printing all units in collection
+     * Returns all units in collection
      * @author KruglovEgor
      */
     public String show(){
@@ -53,7 +54,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Add new unit in collection.
+     * Adds new unit in collection.
      * @param parameters all parameters of HumanBeing's unit without their names in order like in HumanBeing
      * @author KruglovEgor
      */
@@ -63,7 +64,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Change parameters of HumanBeing unit.
+     * Changes parameters of HumanBeing unit.
      * @param parameters id of unit
      * @author KruglovEgor
      */
@@ -73,7 +74,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Remove HumanBeing unit by its id.
+     * Removes HumanBeing unit by its id.
      * @param parameters id of unit
      * @author KruglovEgor
      */
@@ -93,7 +94,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Remove all units from collection.
+     * Removes all units from collection.
      * @author KruglovEgor
      */
     public void clear(){
@@ -102,7 +103,7 @@ public class ConsoleCommand {
     }
 
     /**
-     * Save all units in json file (path to it was given by user in the beginning).
+     * Saves all units in json file (path to it was given by user in the beginning).
      * @author KruglovEgor
      */
     public void save(){
@@ -112,24 +113,36 @@ public class ConsoleCommand {
     //@TODO execute_script
 
     /**
-     * Exit from program.
+     * Exits from program.
      * @author KruglovEgor
      */
     public void exit(){
         Main.ongoing = false;
     }
 
+    /**
+     * Removes first unit in sorted collection of HumanBeing.
+     * @author KruglovEgor
+     */
     public void remove_first(){
         Collections.sort(Main.listOfHumanBeing);
         remove_by_id(Main.listOfHumanBeing.getFirst().getId());
     }
 
+    /**
+     * Returns and removes first unit in sorted collection of HumanBeing.
+     * @author KruglovEgor
+     */
     public void remove_head(){
         Collections.sort(Main.listOfHumanBeing);
         System.out.println(Main.listOfHumanBeing.getFirst());
         remove_by_id(Main.listOfHumanBeing.getFirst().getId());
     }
-
+    /**
+     * Adds new unit if its id is max among others units.
+     * @author KruglovEgor
+     * @param parameters id of new unit.
+     */
     public void add_if_max(Object... parameters){
         Collections.sort(Main.listOfHumanBeing);
         if(Main.listOfHumanBeing.getLast().getId() < (Double) parameters[0]){
@@ -137,26 +150,38 @@ public class ConsoleCommand {
         }
     }
 
-    public void count_by_minutes_of_waiting(Object... parameters){
+    /**
+     * Returns count of units with fieal minutesOfWaiting equals to parameters
+     * @author KruglovEgor
+     * @param parameters minutes of waiting
+     */
+    public int count_by_minutes_of_waiting(Object... parameters){
         int count = 0;
         for(HumanBeing unit: Main.listOfHumanBeing){
             if(unit.getMinutesOfWaiting().equals(parameters[0])){count++;}
         }
-        System.out.println(count);
+        return count;
     }
 
-    public void count_less_than_mood(Object... parameters){
+    /**
+     * Return count of units with mood less than parameters.
+     * @author KruglovEgor
+     * @param parameters MOOD
+     */
+    public int count_less_than_mood(Object... parameters){
         int count = 0;
         for(HumanBeing unit: Main.listOfHumanBeing){
             if(unit.getMood().compareTo((Mood) parameters[0]) < 0){count++;}
         }
-        System.out.println(count);
+        return count;
     }
 
-    public void print_ascending(){
+    /**
+     * Returns collection of HumanBeing.
+     * @author KruglovEgor
+     */
+    public LinkedList<HumanBeing> print_ascending(){
         Collections.sort(Main.listOfHumanBeing);
-        for(HumanBeing unit: Main.listOfHumanBeing){
-            System.out.println(unit+"\n");
-        }
+        return Main.listOfHumanBeing;
     }
 }

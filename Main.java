@@ -1,21 +1,17 @@
 package Second_sem.lab5;
 
 import Second_sem.lab5.BaseClasses.HumanBeing;
-import Second_sem.lab5.Commands.AddCommand;
-import Second_sem.lab5.Commands.SaveCommand;
-import Second_sem.lab5.Commands.ShowCommand;
-import Second_sem.lab5.Commands.UpdateCommand;
+import Second_sem.lab5.Commands.*;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class Main {
     static String path;
     /**
-     * LinkedList with all data of units
+     * LinkedList with all data of units.
      * <p>
      * All data is in format of LinkedTreeMap. It's using for creating units of HumanBeing class.
      * </p>
@@ -23,15 +19,17 @@ public class Main {
     public static LinkedList<LinkedTreeMap> listOfData;
 
     /**
-     * Linked list which contains units of HumanBeing class
+     * Linked list which contains units of HumanBeing class.
      */
     public static LinkedList<HumanBeing> listOfHumanBeing;
 
     /**
-     * Date of initialization date of collection
+     * Date of initialization date of collection.
      */
     public static LocalDateTime dateOfInitialization;
-
+    /**
+     * Field for starting and ending program.
+      */
     public static boolean ongoing = true;
 
     /**
@@ -54,9 +52,6 @@ public class Main {
         addCommand.execute(test);
         updateCommand.execute(test2);
 
-//        SaveCommand saveCommand = new SaveCommand(consoleCommand);
-//        saveCommand.execute();
-
         ShowCommand showCommand = new ShowCommand(consoleCommand);
         showCommand.execute();
 
@@ -65,7 +60,7 @@ public class Main {
     }
 
     /**
-     * Make list of HumanBeing units
+     * Makes list of HumanBeing units.
      * It takes LinkedList of LinkedTreeMap with all parameters of our unit.
      *
      * @author KruglovEgor
