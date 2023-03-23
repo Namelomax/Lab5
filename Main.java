@@ -1,7 +1,8 @@
 package Second_sem.lab5;
 
 import Second_sem.lab5.BaseClasses.HumanBeing;
-import Second_sem.lab5.Commands.*;
+import Second_sem.lab5.Commands.AddCommand;
+import Second_sem.lab5.Commands.UpdateCommand;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ public class Main {
      * All data is in format of LinkedTreeMap. It's using for creating units of HumanBeing class.
      * </p>
      */
-    public static LinkedList<LinkedTreeMap> listOfData;
+    public static LinkedList<LinkedTreeMap<String, Object>> listOfData;
 
     /**
      * Linked list which contains units of HumanBeing class.
@@ -37,8 +38,9 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        path = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Data.json";
+        path = "Data.json";
         String data = WorkWithFile.readFromFile(path);
+       // String line = "count_by_minutes_of_waiting 1.3"; Test line
         listOfData = WorkWithFile.convertJSONtoLinkedList(data);
         listOfHumanBeing = makeListOfHumanBeing(listOfData);
         ConsoleCommand consoleCommand = new ConsoleCommand();
@@ -51,12 +53,6 @@ public class Main {
 
         addCommand.execute(test);
         updateCommand.execute(test2);
-
-        ShowCommand showCommand = new ShowCommand(consoleCommand);
-        showCommand.execute();
-
-
-
     }
 
     /**
@@ -67,7 +63,7 @@ public class Main {
      * @param data LinkedList of LinkedTreeMap with all parameters of our unit.
      * @return LinkedList with units of HumanBeing units.
      */
-    private static LinkedList<HumanBeing> makeListOfHumanBeing(LinkedList<LinkedTreeMap> data) {
+    private static LinkedList<HumanBeing> makeListOfHumanBeing(LinkedList<LinkedTreeMap<String, Object>> data) {
         LinkedList<HumanBeing> listOfHumanBeing = new LinkedList<HumanBeing>();
         dateOfInitialization = java.time.LocalDateTime.now();
         for (LinkedTreeMap<String, Object> datum : data) {
