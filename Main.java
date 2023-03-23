@@ -1,8 +1,7 @@
 package Second_sem.lab5;
 
 import Second_sem.lab5.BaseClasses.HumanBeing;
-import Second_sem.lab5.Commands.AddCommand;
-import Second_sem.lab5.Commands.UpdateCommand;
+import Second_sem.lab5.Commands.*;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.time.LocalDateTime;
@@ -38,7 +37,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        path = "Data.json";
+        path = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Data.json";
         String data = WorkWithFile.readFromFile(path);
        // String line = "count_by_minutes_of_waiting 1.3"; Test line
         listOfData = WorkWithFile.convertJSONtoLinkedList(data);
@@ -53,6 +52,8 @@ public class Main {
 
         addCommand.execute(test);
         updateCommand.execute(test2);
+        ShowCommand showCommand = new ShowCommand(consoleCommand);
+        showCommand.execute();
     }
 
     /**
