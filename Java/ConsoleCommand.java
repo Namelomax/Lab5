@@ -6,6 +6,7 @@ import Second_sem.lab5.Java.Exceptions.NoSuchIdException;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class ConsoleCommand {
@@ -172,8 +173,9 @@ public class ConsoleCommand {
      */
     public int count_by_minutes_of_waiting(Object... parameters){
         int count = 0;
+        Double param = (Double) parameters[0];
         for(HumanBeing unit: Main.listOfHumanBeing){
-            if(unit.getMinutesOfWaiting().equals(parameters[0])){count++;}
+            if(unit.getMinutesOfWaiting().equals(param)){count++;}
         }
         return count;
     }
