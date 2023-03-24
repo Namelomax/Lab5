@@ -12,9 +12,10 @@ public class Defaults {
     HashMap<String,Object> example = new HashMap<>();
     ArrayList<Number> ar_coord = new ArrayList<>();
     int[] ar_date = new int[6];
-    public LinkedTreeMap Defaults(LinkedTreeMap txt){
+    public LinkedTreeMap<String, Object> Defaults(LinkedTreeMap<String, Object> txt){
+        LinkedTreeMap<String, Object> ordered = new LinkedTreeMap<>();
         String id = WorkWithFile.readFromFile("id.txt");
-        int a = Integer.parseInt(id);
+        Double a = Double.parseDouble(id);
         txt.put("id",a);
         ar_coord.add(0); ar_coord.add(0);
         ar_date[0]= Main.dateOfInitialization.getYear();
@@ -36,10 +37,11 @@ public class Defaults {
         for (Map.Entry<String, Object> entry : example.entrySet()) {
             if (txt.get(entry.getKey()) == null || !txt.get(entry.getKey()).equals(txt.get(entry.getKey()))){
                 txt.put(entry.getKey(),entry.getValue());}          }
-
+        ordered.put("id",a);
+        ordered.putAll(txt);
                 try (FileWriter fileWriter = new FileWriter("id.txt")) {
                     fileWriter.write(Double.toString(a+1));
             } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-        return txt;}}
+        return ordered;}}
