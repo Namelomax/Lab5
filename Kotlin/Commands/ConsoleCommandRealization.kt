@@ -3,12 +3,12 @@ package Second_sem.lab5.Kotlin.Commands
 import Second_sem.lab5.Kotlin.*
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
 import Second_sem.lab5.Kotlin.BaseClasses.Mood
+import Second_sem.lab5.Kotlin.Exceptions.IdIsOccupiedException
 import Second_sem.lab5.Kotlin.Exceptions.NoSuchIdException
-import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.makeLinkedTreeMap
-import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.printResults
-import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInJSONFile
-import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInTxtFile
+import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.*
 import com.google.gson.internal.LinkedTreeMap
+import java.awt.geom.Path2D
+import java.lang.Double.max
 
 
 class HelpCommand() : Command{
@@ -73,11 +73,25 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 
     constructor(list: List<Any?>): this(makeLinkedTreeMap(list))
 
+    fun checkIfIdIsOccupied(): Boolean{
+        var occupied = false
+        for(unit in listOfHumanBeing){
+            if(unit.id.equals((mapWithParams["id"] as Double?)?.toInt())){
+                occupied = true
+                break
+            }
+        }
+        return occupied
+    }
+
     override fun execute() {
+        if (checkIfIdIsOccupied()){
+            throw IdIsOccupiedException("Sorry, but this id is already occupied.")
+        }
+        writeInTxtFile(pathToId, (max(mapWithParams["id"] as Double? ?: 0.0, readFromFile(pathToId).toDouble() as Double? ?: 0.0)+1).toString())
         listOfData.add(mapWithParams)
         val unit = HumanBeing(mapWithParams)
         listOfHumanBeing.add(unit)
-        writeInTxtFile("D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Id.txt", unit.id.toString())
     }
 
 }
@@ -139,7 +153,7 @@ class ClearCommand():Command{
 
 class SaveCommand() : Command{
     override fun execute() {
-        writeInJSONFile(path, listOfData)
+        writeInJSONFile(pathToCollection, listOfData)
     }
 }
 

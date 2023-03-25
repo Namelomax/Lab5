@@ -1,6 +1,8 @@
 package Second_sem.lab5.Kotlin.BaseClasses
 
 import Second_sem.lab5.Java.BaseClasses.HumanBeing
+import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.readFromFile
+import Second_sem.lab5.Kotlin.pathToId
 import com.google.gson.internal.LinkedTreeMap
 import java.time.LocalDateTime
 
@@ -29,8 +31,7 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
 
 
     constructor(linkedTreeMap: LinkedTreeMap<String, Any?>) :this(
-        //TODO fix id
-        (linkedTreeMap["id"] as? Double ?: Math.rint(4214.4)).toInt(), linkedTreeMap["name"] as? String ?: "DefaultName",
+        (linkedTreeMap["id"] as? Double ?: readFromFile(pathToId).toDouble()).toInt(), linkedTreeMap["name"] as? String ?: "DefaultName",
         Coordinates(linkedTreeMap["coordinates"] as? List<Number> ?: listOf(0.0, 0.0F)),
         makeLocalDateTime(linkedTreeMap["creationDate"] as? List<Int> ?:
         listOf(LocalDateTime.now().year, LocalDateTime.now().monthValue,

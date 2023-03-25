@@ -3,11 +3,13 @@ package Second_sem.lab5.Kotlin
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.convertJSONtoLinkedList
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.readFromFile
+import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInTxtFile
 import com.google.gson.internal.LinkedTreeMap
 import java.time.LocalDateTime
 import java.util.*
 
-public val path = ""
+public var pathToCollection = ""
+public var pathToId = ""
 public var dateOfInitialization = LocalDateTime.of(LocalDateTime.now().year,
     LocalDateTime.now().monthValue, LocalDateTime.now().dayOfMonth,
     LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second)
@@ -18,25 +20,35 @@ public var ongoing = true
 
 
 fun main(){
-    val data = readFromFile(path)
+    pathToCollection = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Data.json"
+    pathToId = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Id.txt"
+    val data = readFromFile(pathToCollection)
     listOfData = convertJSONtoLinkedList(data)
-    println(listOfData)
-    listOfHumanBeing = makeListOfHumanBeing(listOfData)
+    makeListOfHumanBeing()
     println(listOfHumanBeing)
 }
 
 
-fun makeListOfHumanBeing(data: LinkedList<LinkedTreeMap<String, Any?>>): LinkedList<HumanBeing> {
-    val listOfHumanBeing = LinkedList<HumanBeing>()
+fun makeListOfHumanBeing() {
     dateOfInitialization = LocalDateTime.of(LocalDateTime.now().year,
         LocalDateTime.now().monthValue, LocalDateTime.now().dayOfMonth,
         LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second)
 
-    for(datum: LinkedTreeMap<String, Any?> in data){
-        val unit = HumanBeing(datum)
+    val maxId = listOfData.maxOf { it["id"] as Double? ?: 0.0 }
+    writeInTxtFile(pathToId, (maxId+1).toString())
+    val grouprdById = listOfData.groupBy { it["id"] ?: {
+        val currentMaxId = readFromFile(pathToId).toDouble()
+        writeInTxtFile(pathToId, (currentMaxId+1).toString())
+        currentMaxId
+    }
+
+    }
+
+    for(datum in grouprdById){
+        val unit = HumanBeing(datum.value[0])
+        writeInTxtFile(pathToId, (java.lang.Double.max(unit.id.toDouble()+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)).toString())
         listOfHumanBeing.add(unit)
     }
-    return listOfHumanBeing
 }
 
 //fun getSizeOfHumanBeingList() : Int = listOfHumanBeing.size
