@@ -9,6 +9,7 @@ import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.*
 import com.google.gson.internal.LinkedTreeMap
 import java.awt.geom.Path2D
 import java.lang.Double.max
+import java.util.LinkedList
 
 
 class HelpCommand() : Command{
@@ -153,7 +154,11 @@ class ClearCommand():Command{
 
 class SaveCommand() : Command{
     override fun execute() {
-        writeInJSONFile(pathToCollection, listOfData)
+       var list = LinkedList<LinkedTreeMap<String, Any?>>()
+        for (unit in listOfHumanBeing){
+            list.add(unit.makeLinkedTreeMap())
+        }
+        writeInJSONFile(pathToCollection, list)
     }
 }
 

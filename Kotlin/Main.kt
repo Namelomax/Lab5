@@ -1,6 +1,8 @@
 package Second_sem.lab5.Kotlin
 
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
+import Second_sem.lab5.Kotlin.CommunicationWithUser.createFileId
+import Second_sem.lab5.Kotlin.CommunicationWithUser.getPathToCollection
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.convertJSONtoLinkedList
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.readFromFile
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInTxtFile
@@ -8,26 +10,27 @@ import com.google.gson.internal.LinkedTreeMap
 import java.time.LocalDateTime
 import java.util.*
 
-public var pathToCollection = ""
-public var pathToId = ""
-public var dateOfInitialization = LocalDateTime.of(LocalDateTime.now().year,
+var pathToCollection = ""
+var pathToId = ".\\Id.txt"
+var dateOfInitialization = LocalDateTime.of(LocalDateTime.now().year,
     LocalDateTime.now().monthValue, LocalDateTime.now().dayOfMonth,
     LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second)
-public var listOfData = LinkedList<LinkedTreeMap<String, Any?>>()
-public var listOfHumanBeing = LinkedList<HumanBeing>()
-public var ongoing = true
+var listOfData = LinkedList<LinkedTreeMap<String, Any?>>()
+var listOfHumanBeing = LinkedList<HumanBeing>()
+var ongoing = true
 
 
 
 fun main(){
-    pathToCollection = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Data.json"
-    pathToId = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Id.txt"
+    pathToCollection = getPathToCollection()
+    //pathToCollection = "D:\\Intelij IDEA projects\\untitled\\src\\Second_sem\\lab5\\Data.json"
+    createFileId()
     val data = readFromFile(pathToCollection)
     listOfData = convertJSONtoLinkedList(data)
     makeListOfHumanBeing()
+    println(listOfData)
     println(listOfHumanBeing)
 }
-
 
 fun makeListOfHumanBeing() {
     dateOfInitialization = LocalDateTime.of(LocalDateTime.now().year,
@@ -36,15 +39,14 @@ fun makeListOfHumanBeing() {
 
     val maxId = listOfData.maxOf { it["id"] as Double? ?: 0.0 }
     writeInTxtFile(pathToId, (maxId+1).toString())
-    val grouprdById = listOfData.groupBy { it["id"] ?: {
+    val groupedById = listOfData.groupBy { it["id"] ?: {
         val currentMaxId = readFromFile(pathToId).toDouble()
         writeInTxtFile(pathToId, (currentMaxId+1).toString())
         currentMaxId
     }
-
     }
 
-    for(datum in grouprdById){
+    for(datum in groupedById){
         val unit = HumanBeing(datum.value[0])
         writeInTxtFile(pathToId, (java.lang.Double.max(unit.id.toDouble()+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)).toString())
         listOfHumanBeing.add(unit)

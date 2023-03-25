@@ -15,20 +15,6 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
                      val mood: Mood? = null, val car: Car? = null) : Comparable<Second_sem.lab5.Kotlin.BaseClasses.HumanBeing>  {
 
 
-//    val id: Int = 0
-//    val name ="DefaultName"
-//    val coordinates: Coordinates = Coordinates()
-//    val creationDate: java.time.LocalDateTime = LocalDateTime.of(LocalDateTime.now().year,
-//        LocalDateTime.now().monthValue, LocalDateTime.now().dayOfMonth,
-//        LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second)
-//    val realHero: Boolean = false
-//    val hasToothpick: Boolean = false
-//    val impactSpeed: Long = 0
-//    val soundtrackName: String = "DefaultSoundtrackName"
-//    val minutesOfWaiting: Double? = null
-//    val mood: Mood? = null
-//    val car: Car? = null
-
 
     constructor(linkedTreeMap: LinkedTreeMap<String, Any?>) :this(
         (linkedTreeMap["id"] as? Double ?: readFromFile(pathToId).toDouble()).toInt(), linkedTreeMap["name"] as? String ?: "DefaultName",
@@ -67,5 +53,22 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
             """.trimIndent()
     }
 
+
+    fun makeLinkedTreeMap():LinkedTreeMap<String, Any?>{
+        var list = LinkedTreeMap<String, Any?>()
+        list["id"] = id
+        list["name"] = name
+        list["coordinates"] = coordinates
+        list["creationDate"] = creationDate
+        list["realHero"] = realHero
+        list["hasToothpick"] = hasToothpick
+        list["impactSpeed"] = impactSpeed
+        list["soundtrackName"] = soundtrackName
+        list["minutesOfWaiting"] = minutesOfWaiting
+        list["mood"] = mood
+        list["car"] = car
+
+        return list
+    }
 
 }
