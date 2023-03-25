@@ -1,4 +1,4 @@
-package Second_sem.lab5
+package Second_sem.lab5.Kotlin
 
 import Second_sem.lab5.BaseClasses.Car
 import Second_sem.lab5.BaseClasses.Mood
