@@ -3,11 +3,10 @@ package Second_sem.lab5.Kotlin
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
 import Second_sem.lab5.Kotlin.Commands.AddCommand
 import Second_sem.lab5.Kotlin.Commands.Invoker
-import Second_sem.lab5.Kotlin.Commands.RemoveByIdCommand
+import Second_sem.lab5.Kotlin.Commands.UpdateCommand
 import Second_sem.lab5.Kotlin.CommunicationWithUser.createFileId
 import Second_sem.lab5.Kotlin.CommunicationWithUser.getPathToCollection
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.convertJSONtoLinkedList
-import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.printResults
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.readFromFile
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInTxtFile
 import com.google.gson.internal.LinkedTreeMap
@@ -48,13 +47,13 @@ fun main(){
 //    }
     var invoker = Invoker()
     var testMap = LinkedTreeMap<String, Any?>()
-    testMap.put("name", "Leo")
+    testMap.put("name", "John")
     invoker.setCommand(AddCommand(testMap))
     invoker.executeCommand()
     println(listOfData)
     println(listOfHumanBeing)
     println(" ")
-    invoker.setCommand(RemoveByIdCommand(3))
+    invoker.setCommand(UpdateCommand(2.0, testMap))
     invoker.executeCommand()
     println(listOfData)
     println(listOfHumanBeing)

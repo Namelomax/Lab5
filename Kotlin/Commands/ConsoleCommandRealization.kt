@@ -126,6 +126,9 @@ class UpdateCommand(val id:Int, val mapWithParams: LinkedTreeMap<String, Any?>) 
                         mood = (mapWithParams["mood"] as? String ?: unit.mood.toString()).let { Mood.valueOf(it) },
                         car = Car(mapWithParams["car"] as? String ?: unit.car.toString())
                         )
+                    listOfHumanBeing.add(newUnit)
+                    listOfHumanBeing.remove(unit)
+                    break
                 }
             }
         } else throw NoSuchIdException("There is no unit with such id. Please, try to write another id.")
