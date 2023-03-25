@@ -15,18 +15,14 @@ class ConsoleRead {
     lateinit var args: Array<String>
     var refactor = LinkedTreeMap<String, Any?>()
     fun CheckParam(txt: String) {
-        if (txt.startsWith("{")) {
-            val txt = txt.replace("{", "").replace("}", "")
-            val splittedcommand = txt.split(" ")
-            val df = Defaults()
-            for (param in splittedcommand) {
-                val values = param.split("=")
-                refactor[values[0]] = values[1].replace(",", "")
-            }
-            //  refactor= df.Defaults(refactor)
-        } else if (!txt.isEmpty()) {
+        if (command.contains("add")) {
+            fillCollection()
+            } else if (!txt.isEmpty()) {
             if (txt[0].isDigit()) {
+                if(command=="update"){fillCollection()}
                 doubleparam = txt[0].toString().toDouble()
+                println(doubleparam)
+                println(refactor)
             }
         } else {
             line = txt
@@ -54,8 +50,7 @@ class ConsoleRead {
         commands["remove_head"] = RemoveHeadCommand()
         commands["save"] = SaveCommand()
         commands["show"] = ShowCommand()
-        commands["update"] = UpdateCommand(refactor)
-
+        commands["update"] = UpdateCommand(doubleparam,refactor)
         if (commands.containsKey(command)) {
             return true
         } else {
@@ -79,8 +74,8 @@ class ConsoleRead {
             println("Enter name")
         while (nameCheck){
             val line =readln().trim()
-            if (line.matches(Regex("-?\\d+(\\.\\d+)?"))&& line!="") {
-                println("Please enter a non-numeric value.")
+            if (line.matches(regex = Regex("[^a-zA-Z]")) || line=="") {
+                println("Please enter a correct name.")
                 continue
             }else{refactor["name"] = line
                 nameCheck=false
@@ -148,7 +143,7 @@ class ConsoleRead {
             println("Enter soundtrackName")
         while (soundtrackCheck){
             val line =readln().trim()
-        if (line.matches(Regex("-?\\d+(\\.\\d+)?")) && line!="") {
+        if (line.matches(regex = Regex("[^a-zA-Z]")) || line=="") {
             println("Please enter a non-numeric value.")
             continue
         }else{refactor["soundtrackName"] = line
@@ -181,7 +176,7 @@ class ConsoleRead {
         println("Enter car")
         while (carCheck){
             val line =readln().trim()
-            if (line.matches(Regex("-?\\d+(\\.\\d+)?")) && line!="") {
+            if (line.matches(regex = Regex("[^a-zA-Z]")) || line=="") {
                 println("Please enter a non-numeric value.")
                 continue
             }else{refactor["car"] = line
