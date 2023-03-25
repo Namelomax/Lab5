@@ -7,7 +7,6 @@ import Second_sem.lab5.Kotlin.Exceptions.IdIsOccupiedException
 import Second_sem.lab5.Kotlin.Exceptions.NoSuchIdException
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.*
 import com.google.gson.internal.LinkedTreeMap
-import java.awt.geom.Path2D
 import java.lang.Double.max
 import java.util.LinkedList
 
@@ -89,8 +88,8 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
         if (checkIfIdIsOccupied()){
             throw IdIsOccupiedException("Sorry, but this id is already occupied.")
         }
-        writeInTxtFile(pathToId, (max(mapWithParams["id"] as Double? ?: 0.0, readFromFile(pathToId).toDouble() as Double? ?: 0.0)+1).toString())
         val unit = HumanBeing(mapWithParams)
+        writeInTxtFile(pathToId, (max((mapWithParams["id"] as Double?  ?: -1.0)+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)+1).toString())
         listOfData.add(unit.makeLinkedTreeMap())
         listOfHumanBeing.add(unit)
     }

@@ -73,6 +73,7 @@ fun makeListOfHumanBeing() {
     fun getId() : Double{
         val currentMaxId = readFromFile(pathToId).toDouble()
         writeInTxtFile(pathToId, (currentMaxId+1).toString())
+        println("Id now: $currentMaxId")
         return currentMaxId
     }
 
@@ -80,9 +81,10 @@ fun makeListOfHumanBeing() {
     }
     listOfData.clear()
     for(datum in groupedById){
+        datum.value[0].put("id", datum.key)
         val unit = HumanBeing(datum.value[0])
         listOfData.add(unit.makeLinkedTreeMap())
-        writeInTxtFile(pathToId, (java.lang.Double.max(unit.id.toDouble()+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)).toString())
+        //writeInTxtFile(pathToId, (java.lang.Double.max(unit.id.toDouble()+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)).toString())
         listOfHumanBeing.add(unit)
     }
 }
