@@ -90,8 +90,8 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
             throw IdIsOccupiedException("Sorry, but this id is already occupied.")
         }
         writeInTxtFile(pathToId, (max(mapWithParams["id"] as Double? ?: 0.0, readFromFile(pathToId).toDouble() as Double? ?: 0.0)+1).toString())
-        listOfData.add(mapWithParams)
         val unit = HumanBeing(mapWithParams)
+        listOfData.add(unit.makeLinkedTreeMap())
         listOfHumanBeing.add(unit)
     }
 
