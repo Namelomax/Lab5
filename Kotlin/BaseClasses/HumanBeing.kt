@@ -1,7 +1,7 @@
 package Second_sem.lab5.Kotlin.BaseClasses
 
+import Second_sem.lab5.Java.BaseClasses.HumanBeing
 import com.google.gson.internal.LinkedTreeMap
-import java.lang.Integer.min
 import java.time.LocalDateTime
 
 class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinates: Coordinates = Coordinates(),
@@ -10,7 +10,7 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
                          LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second),
                      val realHero: Boolean = false, val hasToothpick: Boolean = false, val impactSpeed: Long = 0,
                      val soundtrackName: String = "DefaultSoundtrackName", val minutesOfWaiting: Double? = null,
-                     val mood: Mood? = null, val car: Car? = null) {
+                     val mood: Mood? = null, val car: Car? = null) : Comparable<Second_sem.lab5.Kotlin.BaseClasses.HumanBeing>  {
 
 
 //    val id: Int = 0
@@ -30,7 +30,7 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
 
     constructor(linkedTreeMap: LinkedTreeMap<String, Any?>) :this(
         //TODO fix id
-        (linkedTreeMap["id"] as? Double ?: 1).toInt(), linkedTreeMap["name"] as? String ?: "DefaultName",
+        (linkedTreeMap["id"] as? Double ?: Math.rint(4214.4)).toInt(), linkedTreeMap["name"] as? String ?: "DefaultName",
         Coordinates(linkedTreeMap["coordinates"] as? List<Number> ?: listOf(0.0, 0.0F)),
         makeLocalDateTime(linkedTreeMap["creationDate"] as? List<Int> ?:
         listOf(LocalDateTime.now().year, LocalDateTime.now().monthValue,
@@ -44,6 +44,9 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
         (linkedTreeMap["mood"] as? String? ?: null)?.let { Mood.valueOf(it) },
         Car(linkedTreeMap["car"] as? String? ?: null))
 
+    override fun compareTo(other: Second_sem.lab5.Kotlin.BaseClasses.HumanBeing): Int {
+        return id.compareTo(other.id)
+    }
 
 
     override fun toString(): String {
@@ -62,4 +65,6 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
             car: $car
             """.trimIndent()
     }
+
+
 }

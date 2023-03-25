@@ -12,8 +12,7 @@ fun readFromFile(pathToFile: String): String {
     try {
         txt = Scanner( File(pathToFile)).useDelimiter("\\Z").next()
     } catch (e: FileNotFoundException) {
-        //todo add print by class
-        println("File not found")
+        throw FileNotFoundException("It seems like you don't have such file")
     }
     return txt
 }

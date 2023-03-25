@@ -13,6 +13,7 @@ public var dateOfInitialization = LocalDateTime.of(LocalDateTime.now().year,
     LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second)
 public var listOfData = LinkedList<LinkedTreeMap<String, Any?>>()
 public var listOfHumanBeing = LinkedList<HumanBeing>()
+public var ongoing = true
 
 
 

@@ -2,11 +2,14 @@ package Second_sem.lab5.Kotlin.Commands
 
 import Second_sem.lab5.Kotlin.*
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
+import Second_sem.lab5.Kotlin.BaseClasses.Mood
+import Second_sem.lab5.Kotlin.Exceptions.NoSuchIdException
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.makeLinkedTreeMap
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.printResults
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInJSONFile
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInTxtFile
 import com.google.gson.internal.LinkedTreeMap
+
 
 class HelpCommand() : Command{
     fun getHelp():String{
@@ -119,8 +122,7 @@ class RemoveByIdCommand(val id: Int):Command{
                 }
             }
         }
-        //TODO make exception
-        //else throw new NoSuchIdException("There is no unit with such id. Please, try to write another id.")
+        else throw NoSuchIdException("There is no unit with such id. Please, try to write another id.")
     }
 
 }
@@ -142,3 +144,93 @@ class SaveCommand() : Command{
 }
 
 
+//TODO executeScriptCommand
+
+
+
+class ExitCommand(): Command{
+    override fun execute() {
+        ongoing = false
+    }
+}
+
+
+class RemoveFirstCommand():Command{
+    override fun execute() {
+        listOfHumanBeing.sort()
+        val removeById = RemoveByIdCommand(listOfHumanBeing[0].id)
+        removeById.execute()
+    }
+}
+
+
+class RemoveHeadCommand():Command{
+    override fun execute() {
+        listOfHumanBeing.sort()
+        val removeById = RemoveByIdCommand(listOfHumanBeing[0].id)
+        if (listOfHumanBeing.size > 0) printResults(listOfHumanBeing[0])
+        removeById.execute()
+    }
+}
+
+//TODO check logic
+class AddIfMaxCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command {
+
+    constructor(list: List<Any?>) : this(makeLinkedTreeMap(list))
+
+    override fun execute() {
+        listOfHumanBeing.sort()
+        if(listOfHumanBeing.last.id < (mapWithParams["id"] as Double).toInt()){
+            val add = AddCommand(mapWithParams)
+            add.execute()
+        }
+    }
+}
+
+
+class CountByMinutesOfWaiting(val minutesOfWaiting: Double) : Command{
+
+    fun getCountByMinutesOfWaiting() : Int{
+        var count = 0
+        for(unit in listOfHumanBeing){
+            if(unit.minutesOfWaiting?.equals(minutesOfWaiting) == true){
+                count++
+            }
+        }
+        return count
+    }
+    override fun execute() {
+        printResults(getCountByMinutesOfWaiting())
+    }
+
+}
+
+
+class CountLessThanMood(val mood: Mood):Command{
+
+    constructor(moodStr : String) : this(Mood.valueOf(moodStr))
+
+    fun getCountLessThanMood():Int{
+        var count = 0
+        for (unit in listOfHumanBeing){
+            if(unit.mood != null){
+                if(unit.mood!!.compareTo(mood) < 0){
+                    count++
+                }
+            }
+        }
+        return count
+    }
+
+    override fun execute() {
+        printResults(getCountLessThanMood())
+    }
+}
+
+
+class PrintAscending() : Command{
+    override fun execute() {
+        listOfHumanBeing.sort()
+        printResults(listOfHumanBeing)
+    }
+}
