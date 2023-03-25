@@ -1,7 +1,9 @@
 package Second_sem.lab5.Kotlin
 
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
+import Second_sem.lab5.Kotlin.Commands.AddCommand
 import Second_sem.lab5.Kotlin.Commands.Invoker
+import Second_sem.lab5.Kotlin.Commands.RemoveByIdCommand
 import Second_sem.lab5.Kotlin.CommunicationWithUser.createFileId
 import Second_sem.lab5.Kotlin.CommunicationWithUser.getPathToCollection
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.convertJSONtoLinkedList
@@ -31,19 +33,33 @@ fun main(){
     listOfData = convertJSONtoLinkedList(data)
     makeListOfHumanBeing()
     //println(listOfData)
-    println(listOfHumanBeing)
-    var consoleRead = ConsoleRead()
+    //println(listOfHumanBeing)
+//    var consoleRead = ConsoleRead()
+//    var invoker = Invoker()
+//    while(ongoing){
+//        consoleRead.Read(readln())
+//        if(!consoleRead.CheckComand(consoleRead.command)){
+//            printResults("Wrong command")
+//            continue
+//        }
+//
+//        consoleRead.commands.get(consoleRead.command)?.let { invoker.setCommand(it) }
+//        invoker.executeCommand()
+//    }
     var invoker = Invoker()
-    while(ongoing){
-        consoleRead.Read(readln())
-        if(!consoleRead.CheckComand(consoleRead.command)){
-            printResults("Wrong command")
-            continue
-        }
+    var testMap = LinkedTreeMap<String, Any?>()
+    testMap.put("name", "Leo")
+    invoker.setCommand(AddCommand(testMap))
+    invoker.executeCommand()
+    println(listOfData)
+    println(listOfHumanBeing)
+    println(" ")
+    invoker.setCommand(RemoveByIdCommand(3))
+    invoker.executeCommand()
+    println(listOfData)
+    println(listOfHumanBeing)
 
-        consoleRead.commands.get(consoleRead.command)?.let { invoker.setCommand(it) }
-        invoker.executeCommand()
-    }
+
 }
 
 fun makeListOfHumanBeing() {
@@ -62,9 +78,10 @@ fun makeListOfHumanBeing() {
 
     val groupedById = listOfData.groupBy { it["id"] ?: getId()
     }
-    println(groupedById)
+    listOfData.clear()
     for(datum in groupedById){
         val unit = HumanBeing(datum.value[0])
+        listOfData.add(unit.makeLinkedTreeMap())
         writeInTxtFile(pathToId, (java.lang.Double.max(unit.id.toDouble()+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)).toString())
         listOfHumanBeing.add(unit)
     }

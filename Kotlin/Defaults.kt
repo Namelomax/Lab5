@@ -1,7 +1,8 @@
 package Second_sem.lab5.Kotlin
 
-import Second_sem.lab5.BaseClasses.Car
-import Second_sem.lab5.BaseClasses.Mood
+import Second_sem.lab5.Java.WorkWithFile
+import Second_sem.lab5.Kotlin.BaseClasses.Car
+import Second_sem.lab5.Kotlin.BaseClasses.Mood
 import com.google.gson.internal.LinkedTreeMap
 import java.io.FileWriter
 import java.io.IOException
@@ -24,13 +25,13 @@ class Defaults {
         ar_date[3] = LocalDateTime.now().hour
         ar_date[4] = LocalDateTime.now().minute
         ar_date[5] = LocalDateTime.now().second
-        example["name"] = "Bob"
+        example["name"] = "DefaultName"
         example["coordinates"] = ar_coord
         example["creationDate"] = ar_date
         example["hasToothpick"] = false
         example["realHero"] = false
-        example["impactSpeed"] = 100L
-        example["soundtrackName"] = "Gan"
+        example["impactSpeed"] = 0L
+        example["soundtrackName"] = "DefaultSoundtrackName"
         example["minutesOfWaiting"] = 5.0
         example["mood"] = "LONGING"
         example["car"] = "GDV"

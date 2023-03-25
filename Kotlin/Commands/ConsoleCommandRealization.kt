@@ -131,7 +131,7 @@ class RemoveByIdCommand(val id: Int):Command{
     override fun execute() {
         if (idExists){
             for(map in listOfData){
-                if((map["id"] as Double).toInt().equals(id)){
+                if((map["id"] as Int).equals(id)){
                     listOfData.remove(map)
                     break
                 }
