@@ -9,12 +9,16 @@ import kotlin.io.path.Path
 fun getPathToCollection() : String{
     printResults("Please enter the absolute path to the file.json with collection: ")
     //var usersPath = Path(readln())
-    var usersPath = Path(readln())
-    while (Files.notExists(usersPath) or (File(usersPath.toString()).extension != "json") or (!Files.isReadable(usersPath))){
+    //var usersPath = Path(readln())
+    var usersPath = readln().trim()
+    var file = File(usersPath)
+    while (!file.exists() or (file.extension != "json")){
         printResults("It's a wrong file. Please enter another path:")
-        usersPath = Path(readln())
+        usersPath = readln().trim()
+        file = File(usersPath)
     }
-    return usersPath.toString()
+    printResults("Successful!")
+    return usersPath
 }
 
 
