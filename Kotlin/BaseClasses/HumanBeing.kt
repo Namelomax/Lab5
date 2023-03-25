@@ -27,9 +27,9 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
         linkedTreeMap["hasToothpick"] as? Boolean ?: false,
         (linkedTreeMap["impactSpeed"] as? Double ?: 0.0).toLong(),
         linkedTreeMap["soundtrackName"] as? String ?: "DefaultSoundtrackName",
-        linkedTreeMap["minutesOfWaiting"] as? Double? ?: null,
-        (linkedTreeMap["mood"] as? String? ?: null)?.let { Mood.valueOf(it) },
-        Car(linkedTreeMap["car"] as? String? ?: null))
+        linkedTreeMap["minutesOfWaiting"] as? Double ?: null,
+        (linkedTreeMap["mood"] as? String ?: null)?.let { Mood.valueOf(it) },
+        Car(linkedTreeMap["car"] as? String ?: null))
 
     override fun compareTo(other: Second_sem.lab5.Kotlin.BaseClasses.HumanBeing): Int {
         return id.compareTo(other.id)

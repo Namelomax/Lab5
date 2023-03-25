@@ -1,8 +1,7 @@
 package Second_sem.lab5.Kotlin.Commands
 
 import Second_sem.lab5.Kotlin.*
-import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
-import Second_sem.lab5.Kotlin.BaseClasses.Mood
+import Second_sem.lab5.Kotlin.BaseClasses.*
 import Second_sem.lab5.Kotlin.Exceptions.IdIsOccupiedException
 import Second_sem.lab5.Kotlin.Exceptions.NoSuchIdException
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.*
@@ -97,15 +96,39 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 }
 
 
-class UpdateCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
+class UpdateCommand(val id:Int, val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 
-    constructor(list: List<Any?>): this(makeLinkedTreeMap(list))
+    constructor(id: Int, list: List<Any?>): this(id, makeLinkedTreeMap(list))
+    constructor(id: Double, list: List<Any?>): this(id.toInt(), makeLinkedTreeMap(list))
+    constructor(id: Double, map: LinkedTreeMap<String, Any?>): this(id.toInt(), map)
+
+    fun  checkIfIdExists() :Boolean{
+        for(unit : HumanBeing in listOfHumanBeing){
+            if(unit.id.equals(id)) {
+                return true
+            }
+        }
+        return false
+    }
 
     override fun execute() {
-        val removeById = RemoveByIdCommand(mapWithParams["id"] as Double)
-        removeById.execute()
-        val add = AddCommand(mapWithParams)
-        add.execute()
+        if (checkIfIdExists()){
+            for (unit : HumanBeing in listOfHumanBeing){
+                if(unit.id.equals(id)){
+                    val newUnit = HumanBeing(id, name = mapWithParams["name"] as? String ?: unit.name,
+                        coordinates = Coordinates(mapWithParams["coordinates"] as? List<Number> ?: unit.coordinates.getCoordinates()),
+                        creationDate = (mapWithParams["creationDate"] as? List<Int>)?.let { makeLocalDateTime(it) } ?: unit.creationDate,
+                        realHero = mapWithParams["realHero"] as? Boolean ?: unit.realHero,
+                        hasToothpick = mapWithParams["hasToothpick"] as? Boolean ?: unit.hasToothpick,
+                        impactSpeed = (mapWithParams["impactSpeed"] as? Double)?.toLong() ?: unit.impactSpeed,
+                        soundtrackName = mapWithParams["soundtrackName"] as? String ?: unit.soundtrackName,
+                        minutesOfWaiting = mapWithParams["minutesOfWaiting"] as? Double ?: unit.minutesOfWaiting,
+                        mood = (mapWithParams["mood"] as? String ?: unit.mood.toString()).let { Mood.valueOf(it) },
+                        car = Car(mapWithParams["car"] as? String ?: unit.car.toString())
+                        )
+                }
+            }
+        } else throw NoSuchIdException("There is no unit with such id. Please, try to write another id.")
     }
 
 }
