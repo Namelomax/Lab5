@@ -1,9 +1,11 @@
 package Second_sem.lab5.Kotlin
 
 import Second_sem.lab5.Kotlin.BaseClasses.HumanBeing
+import Second_sem.lab5.Kotlin.Commands.Invoker
 import Second_sem.lab5.Kotlin.CommunicationWithUser.createFileId
 import Second_sem.lab5.Kotlin.CommunicationWithUser.getPathToCollection
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.convertJSONtoLinkedList
+import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.printResults
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.readFromFile
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.writeInTxtFile
 import com.google.gson.internal.LinkedTreeMap
@@ -28,8 +30,20 @@ fun main(){
     val data = readFromFile(pathToCollection)
     listOfData = convertJSONtoLinkedList(data)
     makeListOfHumanBeing()
-    println(listOfData)
+    //println(listOfData)
     println(listOfHumanBeing)
+    var consoleRead = ConsoleRead()
+    var invoker = Invoker()
+    while(ongoing){
+        consoleRead.Read(readln())
+        if(!consoleRead.CheckComand(consoleRead.command)){
+            printResults("Wrong command")
+            continue
+        }
+
+        consoleRead.commands.get(consoleRead.command)?.let { invoker.setCommand(it) }
+        invoker.executeCommand()
+    }
 }
 
 fun makeListOfHumanBeing() {
@@ -39,13 +53,16 @@ fun makeListOfHumanBeing() {
 
     val maxId = listOfData.maxOf { it["id"] as Double? ?: 0.0 }
     writeInTxtFile(pathToId, (maxId+1).toString())
-    val groupedById = listOfData.groupBy { it["id"] ?: {
+
+    fun getId() : Double{
         val currentMaxId = readFromFile(pathToId).toDouble()
         writeInTxtFile(pathToId, (currentMaxId+1).toString())
-        currentMaxId
-    }
+        return currentMaxId
     }
 
+    val groupedById = listOfData.groupBy { it["id"] ?: getId()
+    }
+    println(groupedById)
     for(datum in groupedById){
         val unit = HumanBeing(datum.value[0])
         writeInTxtFile(pathToId, (java.lang.Double.max(unit.id.toDouble()+1, readFromFile(pathToId).toDouble() as Double? ?: 0.0)).toString())
