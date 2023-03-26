@@ -6,6 +6,7 @@ import Second_sem.lab5.Kotlin.Exceptions.IdIsOccupiedException
 import Second_sem.lab5.Kotlin.Exceptions.NoSuchIdException
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.*
 import com.google.gson.internal.LinkedTreeMap
+import java.awt.geom.Path2D
 import java.lang.Double.max
 import java.util.LinkedList
 
@@ -96,11 +97,11 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 }
 
 
-class UpdateCommand(val id:Int, val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
+class UpdateCommand(val id:Double, val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 
-    constructor(id: Int, list: List<Any?>): this(id, makeLinkedTreeMap(list))
-    constructor(id: Double, list: List<Any?>): this(id.toInt(), makeLinkedTreeMap(list))
-    constructor(id: Double, map: LinkedTreeMap<String, Any?>): this(id.toInt(), map)
+   // constructor(id: Int, list: List<Any?>): this(id, makeLinkedTreeMap(list))
+   // constructor(id: Double, list: List<Any?>): this(id.toInt(), makeLinkedTreeMap(list))
+    //constructor(id: Double, map: LinkedTreeMap<String, Any?>): this(id.toInt(), map)
 
     fun  checkIfIdExists() :Boolean{
         for(unit : HumanBeing in listOfHumanBeing){
@@ -125,7 +126,7 @@ class UpdateCommand(val id:Int, val mapWithParams: LinkedTreeMap<String, Any?>) 
                         minutesOfWaiting = mapWithParams["minutesOfWaiting"] as? Double ?: unit.minutesOfWaiting,
                         mood = (mapWithParams["mood"] as? String ?: unit.mood.toString()).let { Mood.valueOf(it) },
                         car = Car(mapWithParams["car"] as? String ?: unit.car.toString())
-                        )
+                    )
                     listOfHumanBeing.add(newUnit)
                     listOfHumanBeing.remove(unit)
                     break
@@ -137,9 +138,9 @@ class UpdateCommand(val id:Int, val mapWithParams: LinkedTreeMap<String, Any?>) 
 }
 
 
-class RemoveByIdCommand(val id: Int):Command{
+class RemoveByIdCommand(val id: Double):Command{
 
-    constructor(id: Double): this(id.toInt())
+    //constructor(id: Double): this(id.toInt())
 
     val idExists = checkIfIdExists()
 
@@ -156,7 +157,7 @@ class RemoveByIdCommand(val id: Int):Command{
     override fun execute() {
         if (idExists){
             for(map in listOfData){
-                if((map["id"] as Int).equals(id)){
+                if((map["id"] as Double).equals(id)){
                     listOfData.remove(map)
                     break
                 }
@@ -179,7 +180,7 @@ class ClearCommand():Command{
 
 class SaveCommand() : Command{
     override fun execute() {
-       var list = LinkedList<LinkedTreeMap<String, Any?>>()
+        var list = LinkedList<LinkedTreeMap<String, Any?>>()
         for (unit in listOfHumanBeing){
             list.add(unit.makeLinkedTreeMap())
         }
@@ -233,7 +234,6 @@ class AddIfMaxCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command 
 
 
 class CountByMinutesOfWaiting(val minutesOfWaiting: Double) : Command{
-
     fun getCountByMinutesOfWaiting() : Int{
         var count = 0
         for(unit in listOfHumanBeing){
