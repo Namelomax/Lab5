@@ -96,11 +96,9 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 
 }
 
-
 class UpdateCommand(val id:Double, val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
-
-   // constructor(id: Int, list: List<Any?>): this(id, makeLinkedTreeMap(list))
-   // constructor(id: Double, list: List<Any?>): this(id.toInt(), makeLinkedTreeMap(list))
+    constructor(id: Int, list: List<Any?>): this(id, makeLinkedTreeMap(list))
+   constructor(id: Int, map: LinkedTreeMap<String, Any?>): this(id.toDouble(),map)
     //constructor(id: Double, map: LinkedTreeMap<String, Any?>): this(id.toInt(), map)
 
     fun  checkIfIdExists() :Boolean{
@@ -140,9 +138,7 @@ class UpdateCommand(val id:Double, val mapWithParams: LinkedTreeMap<String, Any?
 
 class RemoveByIdCommand(val id: Double):Command{
 
-    //constructor(id: Double): this(id.toInt())
-
-    val idExists = checkIfIdExists()
+    constructor(id: Int): this(id.toDouble())
 
     fun  checkIfIdExists() :Boolean{
         for(unit : HumanBeing in listOfHumanBeing){
@@ -155,7 +151,7 @@ class RemoveByIdCommand(val id: Double):Command{
     }
 
     override fun execute() {
-        if (idExists){
+        if (checkIfIdExists()){
             for(map in listOfData){
                 if((map["id"] as Double).equals(id)){
                     listOfData.remove(map)
@@ -203,7 +199,7 @@ class ExitCommand(): Command{
 class RemoveFirstCommand():Command{
     override fun execute() {
         listOfHumanBeing.sort()
-        val removeById = RemoveByIdCommand(listOfHumanBeing[0].id)
+        val removeById = RemoveByIdCommand(listOfHumanBeing[0].id.toDouble())
         removeById.execute()
     }
 }
@@ -212,7 +208,7 @@ class RemoveFirstCommand():Command{
 class RemoveHeadCommand():Command{
     override fun execute() {
         listOfHumanBeing.sort()
-        val removeById = RemoveByIdCommand(listOfHumanBeing[0].id)
+        val removeById = RemoveByIdCommand(listOfHumanBeing[0].id.toDouble())
         if (listOfHumanBeing.size > 0) printResults(listOfHumanBeing[0])
         removeById.execute()
     }
