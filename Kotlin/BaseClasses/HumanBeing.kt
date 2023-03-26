@@ -6,7 +6,7 @@ import Second_sem.lab5.Kotlin.pathToId
 import com.google.gson.internal.LinkedTreeMap
 import java.time.LocalDateTime
 
-class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinates: Coordinates = Coordinates(),
+class HumanBeing(    val id: Double, val name: String="DefaultName", val coordinates: Coordinates = Coordinates(),
                      val creationDate: java.time.LocalDateTime = LocalDateTime.of(LocalDateTime.now().year,
                          LocalDateTime.now().monthValue, LocalDateTime.now().dayOfMonth,
                          LocalDateTime.now().hour, LocalDateTime.now().minute, LocalDateTime.now().second),
@@ -17,7 +17,7 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
 
 
     constructor(linkedTreeMap: LinkedTreeMap<String, Any?>) :this(
-        (linkedTreeMap["id"] as? Double ?: readFromFile(pathToId).toDouble()).toInt(), linkedTreeMap["name"] as? String ?: "DefaultName",
+        (linkedTreeMap["id"] as? Double ?: readFromFile(pathToId).toDouble()), linkedTreeMap["name"] as? String ?: "DefaultName",
         Coordinates(linkedTreeMap["coordinates"] as? List<Number> ?: listOf(0.0, 0.0F)),
         makeLocalDateTime(linkedTreeMap["creationDate"] as? List<Int> ?:
         listOf(LocalDateTime.now().year, LocalDateTime.now().monthValue,
@@ -27,9 +27,9 @@ class HumanBeing(    val id: Int, val name: String="DefaultName", val coordinate
         linkedTreeMap["hasToothpick"] as? Boolean ?: false,
         (linkedTreeMap["impactSpeed"] as? Double ?: 0.0).toLong(),
         linkedTreeMap["soundtrackName"] as? String ?: "DefaultSoundtrackName",
-        linkedTreeMap["minutesOfWaiting"] as? Double ?: null,
-        (linkedTreeMap["mood"] as? String ?: null)?.let { Mood.valueOf(it) },
-        Car(linkedTreeMap["car"] as? String ?: null))
+        linkedTreeMap["minutesOfWaiting"] as? Double? ?: null,
+        (linkedTreeMap["mood"] as? String? ?: null)?.let { Mood.valueOf(it) },
+        Car(linkedTreeMap["car"] as? String? ?: null))
 
     override fun compareTo(other: Second_sem.lab5.Kotlin.BaseClasses.HumanBeing): Int {
         return id.compareTo(other.id)
