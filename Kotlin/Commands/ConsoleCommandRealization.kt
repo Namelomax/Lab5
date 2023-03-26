@@ -3,12 +3,10 @@ package Second_sem.lab5.Kotlin.Commands
 import Second_sem.lab5.Kotlin.*
 import Second_sem.lab5.Kotlin.BaseClasses.*
 import Second_sem.lab5.Kotlin.Exceptions.IdIsOccupiedException
-import Second_sem.lab5.Kotlin.Exceptions.NoSuchIdException
 import Second_sem.lab5.Kotlin.HelpingOrFormatingClasses.*
 import com.google.gson.internal.LinkedTreeMap
-import java.awt.geom.Path2D
 import java.lang.Double.max
-import java.util.LinkedList
+import java.util.*
 
 
 class HelpCommand() : Command{
@@ -57,8 +55,9 @@ class InfoCommand():Command{
 
 
 class ShowCommand : Command{
-    fun getShow():String{
-        val txt = listOfHumanBeing.toString()
+    var txt: String =""
+    private fun getShow():String{
+        txt = listOfHumanBeing.toString()
         return txt
     }
 
@@ -96,13 +95,15 @@ class AddCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
 
 }
 
-class UpdateCommand(val id:Double, val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
+class UpdateCommand(val id:Int, val mapWithParams: LinkedTreeMap<String, Any?>) : Command{
     constructor(id: Int, list: List<Any?>): this(id, makeLinkedTreeMap(list))
-   constructor(id: Int, map: LinkedTreeMap<String, Any?>): this(id.toDouble(),map)
+   constructor(id: Double, map: LinkedTreeMap<String, Any?>): this(id.toInt(), map)
     //constructor(id: Double, map: LinkedTreeMap<String, Any?>): this(id.toInt(), map)
 
     fun  checkIfIdExists() :Boolean{
         for(unit : HumanBeing in listOfHumanBeing){
+            println(id)
+            println(unit.id)
             if(unit.id.equals(id)) {
                 return true
             }
@@ -130,7 +131,7 @@ class UpdateCommand(val id:Double, val mapWithParams: LinkedTreeMap<String, Any?
                     break
                 }
             }
-        } else throw NoSuchIdException("There is no unit with such id. Please, try to write another id.")
+        } else println("There is no unit with such id. Please, try to write another id.")
     }
 
 }
@@ -142,7 +143,7 @@ class RemoveByIdCommand(val id: Double):Command{
 
     fun  checkIfIdExists() :Boolean{
         for(unit : HumanBeing in listOfHumanBeing){
-            if(unit.id.equals(id)) {
+            if(unit.id.equals(id.toInt())) {
                 listOfHumanBeing.remove(unit)
                 return true
             }
@@ -159,7 +160,7 @@ class RemoveByIdCommand(val id: Double):Command{
                 }
             }
         }
-        else throw NoSuchIdException("There is no unit with such id. Please, try to write another id.")
+        else println("There is no unit with such id. Please, try to write another id.")
     }
 
 }
@@ -176,7 +177,7 @@ class ClearCommand():Command{
 
 class SaveCommand() : Command{
     override fun execute() {
-        var list = LinkedList<LinkedTreeMap<String, Any?>>()
+        val list = LinkedList<LinkedTreeMap<String, Any?>>()
         for (unit in listOfHumanBeing){
             list.add(unit.makeLinkedTreeMap())
         }
@@ -221,7 +222,9 @@ class AddIfMaxCommand(val mapWithParams: LinkedTreeMap<String, Any?>) : Command 
 
     override fun execute() {
         listOfHumanBeing.sort()
-        if(listOfHumanBeing.last.id < (mapWithParams["id"] as Double).toInt()){
+        println(listOfHumanBeing.last.id)
+        println((mapWithParams["id"].toString().toIntOrNull()?:readFromFile(pathToId).toInt()))
+        if(listOfHumanBeing.last.id < (mapWithParams["id"].toString().toIntOrNull()?:readFromFile(pathToId).toDouble()).toInt()){
             val add = AddCommand(mapWithParams)
             add.execute()
         }
